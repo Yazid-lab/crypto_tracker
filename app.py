@@ -3,6 +3,10 @@
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def extract_price(response):
@@ -10,12 +14,13 @@ def extract_price(response):
     return data["data"][0]["quote"]["USD"]["price"]
 
 
+API_KEY = os.environ.get("API_KEY", "Error loading api key")
 CRYPTO = "BTC"
 URL = "https://pro-api.coinmarketcap.com/v2/tools/price-conversion"
 PARAMETERS = {"amount": 1, "symbol": CRYPTO}
 HEADERS = {
     "Accepts": "application/json",
-    "X-CMC_PRO_API_KEY": "4681f626-927a-4020-b72c-bff721d81272",
+    "X-CMC_PRO_API_KEY": API_KEY,
 }
 
 session = Session()
@@ -23,6 +28,6 @@ session.headers.update(HEADERS)
 try:
     response = session.get(URL, params=PARAMETERS)
     price = extract_price(response)
-    print(f'The price of {CRYPTO} is {price} USD')
+    print(f"The price of {CRYPTO} is {price} USD")
 except (ConnectionError, Timeout, TooManyRedirects) as e:
     print(e)
