@@ -23,11 +23,12 @@ HEADERS = {
     "X-CMC_PRO_API_KEY": API_KEY,
 }
 
-session = Session()
-session.headers.update(HEADERS)
-try:
-    response = session.get(URL, params=PARAMETERS)
-    price = extract_price(response)
-    print(f"The price of {CRYPTO} is {price} USD")
-except (ConnectionError, Timeout, TooManyRedirects) as e:
-    print(e)
+# session = Session()
+# session.headers.update(HEADERS)
+# try:
+#     response = session.get(URL, params=PARAMETERS)
+#     price = extract_price(response)
+#     print(f"The price of {CRYPTO} is {price} USD")
+# except (ConnectionError, Timeout, TooManyRedirects) as e:
+#     print(e)
+print(API_KEY)
